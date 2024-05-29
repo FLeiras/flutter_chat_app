@@ -14,8 +14,8 @@ class BlueButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ButtonStyle(
-        elevation: MaterialStateProperty.all(2),
-        backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+        elevation: WidgetStateProperty.all(2),
+        backgroundColor: WidgetStateProperty.all<Color>(Colors.blue),
       ),
       onPressed: onPress,
       child: SizedBox(
