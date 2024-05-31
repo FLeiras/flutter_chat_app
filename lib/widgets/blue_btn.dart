@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 
 class BlueButton extends StatelessWidget {
   final String btnText;
-  final VoidCallback onPress;
+  final Color color;
+  final Function()? onPressed;
 
   const BlueButton({
     super.key,
     required this.btnText,
-    required this.onPress,
+    required this.onPressed,
+    required this.color,
   });
 
   @override
@@ -15,9 +17,9 @@ class BlueButton extends StatelessWidget {
     return ElevatedButton(
       style: ButtonStyle(
         elevation: WidgetStateProperty.all(2),
-        backgroundColor: WidgetStateProperty.all<Color>(Colors.blue),
+        backgroundColor: WidgetStateProperty.all<Color>(color),
       ),
-      onPressed: onPress,
+      onPressed: onPressed,
       child: SizedBox(
         width: double.infinity,
         height: 55,

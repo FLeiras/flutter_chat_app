@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'package:chat_flutter_app/models/usuario.dart';
+import 'package:chat_flutter_app/models/user.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-ListView listViewUsuarios(List<Usuario> usuarios) {
+ListView listViewUsuarios(List<User> usuarios) {
   return ListView.separated(
     physics: const BouncingScrollPhysics(),
     itemBuilder: (_, i) => _usuarioListTitle(usuarios[i]),
@@ -12,7 +12,7 @@ ListView listViewUsuarios(List<Usuario> usuarios) {
   );
 }
 
-ListTile _usuarioListTitle(Usuario usuario) {
+ListTile _usuarioListTitle(User usuario) {
   return ListTile(
     title: Text(usuario.name),
     subtitle: Text(usuario.email),
@@ -30,9 +30,9 @@ ListTile _usuarioListTitle(Usuario usuario) {
   );
 }
 
-BoxDecoration _statusDecoration(Usuario usuario) {
+BoxDecoration _statusDecoration(User usuario) {
   return BoxDecoration(
-    color: usuario.isOnline ? Colors.green[300] : Colors.red,
+    color: usuario.online ? Colors.green[300] : Colors.red,
     borderRadius: BorderRadius.circular(100),
   );
 }

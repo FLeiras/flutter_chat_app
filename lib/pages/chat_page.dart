@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+
 import 'package:chat_flutter_app/widgets/chat_message.dart';
 
 class ChatPage extends StatefulWidget {

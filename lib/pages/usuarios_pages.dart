@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:provider/provider.dart';
 
-import 'package:chat_flutter_app/models/usuario.dart';
+import 'package:chat_flutter_app/models/user.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:chat_flutter_app/services/auth_service.dart';
 import 'package:chat_flutter_app/widgets/listview_usuarios.dart';
 
 class UsuariosPage extends StatefulWidget {
@@ -15,34 +17,33 @@ class _UsuariosPageState extends State<UsuariosPage> {
   final RefreshController _refreshController =
       RefreshController(initialRefresh: false);
 
-  final List<Usuario> usuarios = [
-    Usuario(
+  final List<User> users = [
+    User(
       name: 'Federico',
       email: 'fleiras18@gmail.com',
-      uuid: '1',
-      isOnline: true,
+      online: true,
     ),
-    Usuario(
+    User(
       name: 'Marcelo',
       email: 'marce@gmail.com',
-      uuid: '2',
-      isOnline: false,
+      online: false,
     ),
-    Usuario(
+    User(
       name: 'Dario',
       email: 'daro@gmail.com',
-      uuid: '3',
-      isOnline: true,
+      online: true,
     ),
   ];
   @override
   Widget build(BuildContext context) {
+    final authService = Provider.of<AuthService>(context);
+    final user = authService.user;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text(
-          'Nombre del usuario',
-          style: TextStyle(
+        title: Text(
+          user.name,
+          style: const TextStyle(
             color: Colors.black87,
           ),
         ),
@@ -53,7 +54,10 @@ class _UsuariosPageState extends State<UsuariosPage> {
             Icons.exit_to_app,
             color: Colors.black87,
           ),
-          onPressed: () {},
+          onPressed: () {
+            authService.logout();
+            Navigator.pushReplacementNamed(context, 'login');
+          },
         ),
         actions: [
           Container(
@@ -79,7 +83,7 @@ class _UsuariosPageState extends State<UsuariosPage> {
             color: Colors.blue[400],
           ),
         ),
-        child: listViewUsuarios(usuarios),
+        child: listViewUsuarios(users),
       ),
     );
   }
