@@ -1,0 +1,28 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Flutter",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug",
+            "program": "lib/main.dart"
+        },
+        {
+            "name": "Flutter (all devices except linux)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug",
+            "deviceIds": [
+                "all"
+            ],
+            "flutterRunDeviceId": "all",
+            "args": [
+                "-d",
+                "all",
+                "--no-launch"
+            ],
+            "program": "lib/main.dart"
+        }
+    ]
+}
