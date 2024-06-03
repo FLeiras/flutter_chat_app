@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'package:chat_flutter_app/widgets/widgets.dart';
+import 'package:chat_flutter_app/helpers/show_alert.dart';
+import 'package:chat_flutter_app/services/auth_service.dart';
+import 'package:chat_flutter_app/services/socket_service.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -52,6 +56,8 @@ class __FormState extends State<_Form> {
 
   @override
   Widget build(BuildContext context) {
+    final authService = Provider.of<AuthService>(context);
+    final socketService = Provider.of<SocketService>(context);
     return Container(
       margin: const EdgeInsets.only(top: 40),
       padding: const EdgeInsets.symmetric(horizontal: 50),
@@ -69,8 +75,28 @@ class __FormState extends State<_Form> {
             isVisible: true,
           ),
           BlueButton(
-            onPress: () {},
+            onPressed: authService.authenticating
+                ? null
+                : () async {
+                    FocusScope.of(context).unfocus();
+
+                    final loginOk = await authService.login(
+                        emailCtrl.text.trim(), passCtrl.text.trim());
+
+                    if (loginOk) {
+                      socketService.connect();
+                      // ignore: use_build_context_synchronously
+                      Navigator.pushReplacementNamed(context, 'usuarios');
+                    } else {
+                      // ignore: use_build_context_synchronously
+                      showAlert(context, 'Login incorrecto',
+                          'Revise las credenciales');
+                    }
+                  },
             btnText: 'Ingrese',
+            color: authService.authenticating
+                ? Colors.grey[400]!
+                : Colors.blue[400]!,
           ),
         ],
       ),
